@@ -162,10 +162,12 @@ wheels = [
 [[package]]
 name = "nfl-player-lookup-rag"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "boto3" },
     { name = "pandas" },
+    { name = "pyspark" },
+    { name = "sparknlp" },
 ]
 
 [package.dev-dependencies]
@@ -178,6 +180,8 @@ dev = [
 requires-dist = [
     { name = "boto3", specifier = ">=1.42.83" },
     { name = "pandas", specifier = ">=3.0.2" },
+    { name = "pyspark", specifier = ">=4.1.1" },
+    { name = "sparknlp", specifier = ">=1.0.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -309,6 +313,24 @@ wheels = [
 ]
 
 [[package]]
+name = "py4j"
+version = "0.10.9.9"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/38/31/0b210511177070c8d5d3059556194352e5753602fa64b85b7ab81ec1a009/py4j-0.10.9.9.tar.gz", hash = "sha256:f694cad19efa5bd1dee4f3e5270eb406613c974394035e5bfc4ec1aba870b879", size = 761089, upload-time = "2025-01-15T03:53:18.624Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/bd/db/ea0203e495be491c85af87b66e37acfd3bf756fd985f87e46fc5e3bf022c/py4j-0.10.9.9-py2.py3-none-any.whl", hash = "sha256:c7c26e4158defb37b0bb124933163641a2ff6e3a3913f7811b0ddbe07ed61533", size = 203008, upload-time = "2025-01-15T03:53:15.648Z" },
+]
+
+[[package]]
+name = "pyspark"
+version = "4.1.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "py4j" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/19/bf/58ee13add151469c25825b7125bbf62c3bdcec05eec4d458fcb5c5516066/pyspark-4.1.1.tar.gz", hash = "sha256:77f78984aa84fbe865c717dd37b49913b4e5c97d76ef6824f932f1aefa6621ec", size = 455359625, upload-time = "2026-01-09T09:38:38.28Z" }
+
+[[package]]
 name = "python-dateutil"
 version = "2.9.0.post0"
 source = { registry = "https://pypi.org/simple" }
@@ -364,6 +386,28 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/94/e7/b2c673351809dca68a0e064b6af791aa332cf192da575fd474ed7d6f16a2/six-1.17.0.tar.gz", hash = "sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81", size = 34031, upload-time = "2024-12-04T17:35:28.174Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl", hash = "sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274", size = 11050, upload-time = "2024-12-04T17:35:26.475Z" },
+]
+
+[[package]]
+name = "spark-nlp"
+version = "6.3.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/0a/d3/3b1d272727a44d2d9197c8c0e48756d81661158a0bdf998cd4c8af8319b6/spark_nlp-6.3.3.tar.gz", hash = "sha256:0bd75f5a71897d6cd74ed45cf9ecbbdfa86ce7582843765112c6192c16ab54f5", size = 372003, upload-time = "2026-03-10T11:28:50.665Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a5/c6/595353d9e25d8a9d0d3615c102c2ffc761b6db9021e51cfaa078abc73432/spark_nlp-6.3.3-py2.py3-none-any.whl", hash = "sha256:aeaa459a737bec3ce595fb84243dd51b3bbb7c380760d73169ccf4dea304fff0", size = 758823, upload-time = "2026-03-10T11:28:47.539Z" },
+]
+
+[[package]]
+name = "sparknlp"
+version = "1.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+    { name = "spark-nlp" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b1/13/2168ddad88eee0637e10b6a7c0a7b6a3143ee76fde414c481b9977b9cd8c/sparknlp-1.0.0.tar.gz", hash = "sha256:f19cfd70d2eebb2bef47a72895da4d4390d4e0f1b34ab1842252c64672e2fe65", size = 3121, upload-time = "2021-01-02T11:46:55.494Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7c/07/45486033981458596a8273782c3230bf6279d1266c96de6b654fe40e765b/sparknlp-1.0.0-py3-none-any.whl", hash = "sha256:226e2597eb951d518f30847b42137e1ba8068448c65f2d48dadc67dfe9fc97b0", size = 1431, upload-time = "2021-01-02T11:46:54.365Z" },
 ]
 
 [[package]]
