@@ -1,0 +1,16 @@
+[project]
+name = "nfl-player-lookup-rag"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "boto3>=1.42.83",
+    "pandas>=3.0.2",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.20.0",
+    "ruff>=0.15.9",
+]
