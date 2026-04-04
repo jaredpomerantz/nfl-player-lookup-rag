@@ -9,6 +9,7 @@ from pyspark.sql.types import StringType
 
 import sparknlp
 from sparknlp.base import DocumentAssembler
+from sparknlp.annotator import Tokenizer
 from pyspark.ml import Pipeline
 
 from nfl_player_lookup_rag.config import REPO_PATH
@@ -47,6 +48,7 @@ PLAYER_STAT_COLS = [
 
 PLAYER_DATA_SUMMARY_COLUMN_NAME = "compiled_summary"
 
+
 class DocGenerator(ABC):
     """A base class for converting CSV data to text documents."""
 
@@ -61,7 +63,7 @@ class DocGenerator(ABC):
             self.csv_path.name, header=True, inferSchema=True, sep=","
         )
 
-    def get_processed_string_column(self, filters: str = "") -> Column:
+    def get_processed_string_column(self, filters: str = "") -> DataFrame:
         """Generates the text for each player-season entry in CSV.
 
         Args:
@@ -76,10 +78,47 @@ class DocGenerator(ABC):
             compile_strings(*[F.col(stat) for stat in PLAYER_STAT_COLS]),
         )
 
-        return sub_df[PLAYER_DATA_SUMMARY_COLUMN_NAME]
+        return sub_df.select(PLAYER_DATA_SUMMARY_COLUMN_NAME)
+
+    def convert_text_to_document(self, player_data_summaries: DataFrame) -> DataFrame:
+        """Converts text to document.
+
+        Args:
+            player_data_summaries: The dataframe containing player data summaries.
+        """
+
+        document_assembler = (
+            DocumentAssembler()
+            .setInputCol(PLAYER_DATA_SUMMARY_COLUMN_NAME)
+            .setOutputCol("document")
+        )
+        return document_assembler.transform(player_data_summaries)
     
-    def convert_text_to_document(self, player_data_summary: str) -> None:
-        """Converts text to document."""
+    def convert_document_to_token(self, document: DataFrame) -> DataFrame:
+        """"""
+
+    def convert_text_to_embeddings(self, player_data_summaries: DataFrame) -> DataFrame:
+        """Converts text to document.
+
+        Args:
+            player_data_summaries: The dataframe containing player data summaries.
+        """
+
+        document_assembler = (
+            DocumentAssembler()
+            .setInputCol(PLAYER_DATA_SUMMARY_COLUMN_NAME)
+            .setOutputCol("document")
+        )
+
+        tokenizer = (
+            Tokenizer().setInputCols("document").setOutputCol("tokens")
+        )
+
+        embedder = AlbertEmbeddings.pretrained("albert_embeddings_albert_base_v1","en").setInputCols(["document", "token"]).setOutputCol("embeddings")
+
+        return document_assembler.transform(player_data_summaries)
+
+
 
     @abstractmethod
     def convert_df_row_to_document_chunk(self, *row_col_inputs) -> str:
