@@ -3,7 +3,7 @@ name = "nfl-player-lookup-rag"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.11,<3.12"
 dependencies = [
     "boto3>=1.42.83",
     "pandas>=3.0.2",
