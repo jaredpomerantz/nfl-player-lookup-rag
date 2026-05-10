@@ -44,15 +44,16 @@ def generate_language_prompt(prompt: str, query_result: QueryResult) -> str:
     Returns:
         An instruction for the language model.
     """
-    output = "Observe the following information: \n"
+    output = "Observe the following information: "
     documents = query_result["documents"]
     if documents is not None:
         for document_chunk in documents[0]:
-            output += f"->{document_chunk}\n"
+            output += f"{document_chunk} ; "
     
     output += (
-        "\n"
-        "Now, answer the following question based on the above information: \n"
+        "Now, without asking any follow-up questions or using emojis, simply "
+        "answer the following question based on the above information, "
+        "stating if there is not enough information if you are unsure: "
         f"{prompt}"
     )
     return output

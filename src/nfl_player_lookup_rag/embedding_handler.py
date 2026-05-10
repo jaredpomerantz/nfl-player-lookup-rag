@@ -11,7 +11,7 @@ from nfl_player_lookup_rag.doc_utils import get_processed_string_column
 import uuid
 
 EMBEDDING_CHUNK_SIZE: int = 5000
-N_QUERY_RESULTS: int = 5
+N_QUERY_RESULTS: int = 20
 
 
 class LocalEmbeddingFunction(EmbeddingFunction):
@@ -46,7 +46,7 @@ class EmbeddingHandler:
 
         self.embedding_model = None
         if local_embedding_model_path is not None:
-            _embedding_model = SentenceTransformer(str(local_embedding_model_path))
+            _embedding_model = SentenceTransformer(str(local_embedding_model_path), device="cpu")
             self.embedding_function = LocalEmbeddingFunction(_embedding_model)
 
         self.chromadb_client = chromadb.PersistentClient(path="./chroma_db")
