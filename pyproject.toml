@@ -1,0 +1,26 @@
+[project]
+name = "nfl-player-lookup-rag"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "boto3>=1.42.83",
+    "pandas>=3.0.2",
+    "pyarrow>=4.0.0",
+    "chromadb>=1.5.0",
+    "sentence-transformers>=5.4.1",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.20.0",
+    "ruff>=0.15.9",
+]
+
+[build-system]
+requires = ["uv_build>=0.11.2,<0.12.0"]
+build-backend = "uv_build"
+
+[tool.uv.sources]
+nfl-player-lookup-rag = { path = "src/nfl_player_lookup_rag", editable = true}
