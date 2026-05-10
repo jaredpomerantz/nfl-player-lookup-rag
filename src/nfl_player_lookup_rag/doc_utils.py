@@ -1,6 +1,7 @@
 """A module for converting CSVs to document chunks."""
 
 import pandas as pd
+from chromadb.api.types import QueryResult
 
 
 SEASON_TYPES: dict[str, str] = {
@@ -33,4 +34,25 @@ def get_processed_string_column(df: pd.DataFrame) -> pd.Series:
 
     return df["summary"]
 
+def generate_language_prompt(prompt: str, query_result: QueryResult) -> str:
+    """Generates the language prompt to be ingested by the language model.
+    
+    Args:
+        prompt: The user prompt.
+        query_result: The closest document matches to the prompt.
 
+    Returns:
+        An instruction for the language model.
+    """
+    output = "Observe the following information: \n"
+    documents = query_result["documents"]
+    if documents is not None:
+        for document_chunk in documents[0]:
+            output += f"->{document_chunk}\n"
+    
+    output += (
+        "\n"
+        "Now, answer the following question based on the above information: \n"
+        f"{prompt}"
+    )
+    return output
