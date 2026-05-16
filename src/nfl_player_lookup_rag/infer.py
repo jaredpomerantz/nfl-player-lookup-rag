@@ -9,7 +9,17 @@ from nfl_player_lookup_rag.doc_utils import generate_language_prompt
 
 EMBEDDING_HANDLER = EmbeddingHandler(MODEL_LOCATION)
 
-def answer_prompt(prompt: str, verbose: bool) -> None:
+
+def answer_prompt(prompt: str, verbose: bool = False) -> str:
+    """A function for prompting the model.
+
+    Args:
+        prompt: The prompt from the user.
+        verbose: Determines whether to print more information to user.
+
+    Returns:
+        A text response to the prompt.
+    """
     query_result = EMBEDDING_HANDLER.query(prompt)
     language_prompt = generate_language_prompt(prompt, query_result)
     if verbose:
@@ -17,17 +27,17 @@ def answer_prompt(prompt: str, verbose: bool) -> None:
 
     response = requests.post(
         url="http://localhost:11434/api/generate",
-        json={
-            "model": "gemma3:4b",
-            "prompt": language_prompt,
-            "stream": False
-        }
+        json={"model": "gemma3:4b", "prompt": language_prompt, "stream": False},
     )
     try:
         text_response = response.json()["response"]
-        print("Model response:", text_response)
+        if verbose:
+            print("Model response:", text_response)
+        return text_response
     except requests.exceptions.JSONDecodeError:
-        print("Decode error. See full response text", response.text)
+        if verbose:
+            print("Decode error. See full response text", response.text)
+    return ""
 
 
 if __name__ == "__main__":
@@ -45,4 +55,3 @@ if __name__ == "__main__":
             break
 
         answer_prompt(prompt, verbose=args.v)
-
