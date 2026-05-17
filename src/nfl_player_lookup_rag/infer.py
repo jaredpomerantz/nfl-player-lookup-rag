@@ -47,7 +47,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     while True:
-        prompt = input("Prompt here: ").strip()
+        prompt = input("Prompt here (enter \"q\" to exit loop): ").strip()
         if not prompt:
             continue
         if prompt.lower() in ("quit", "exit", "q"):

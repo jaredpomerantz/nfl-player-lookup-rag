@@ -208,3 +208,7 @@ __marimo__/
 
 # Local scripts
 scripts/*
+
+tests/resources/log.csv
+tests/resources/outputs.csv
+*.csv:Zone.Identifier
