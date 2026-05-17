@@ -36,7 +36,7 @@ uv sync
 This tool requires a locally hosted Ollama model; Gemma 3 4B is recommended for GPU or CPU-only environments. In Ubuntu, run the following commands:
 ```
 curl -fsSL https://ollama.com/install.sh | sh
-``
+```
 
 ## Use
 To infer, run the following to initiate the language model and prompt loop:
