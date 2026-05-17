@@ -46,7 +46,9 @@ class EmbeddingHandler:
 
         self.embedding_model = None
         if local_embedding_model_path is not None:
-            _embedding_model = SentenceTransformer(str(local_embedding_model_path), device="cpu")
+            _embedding_model = SentenceTransformer(
+                str(local_embedding_model_path), device="cpu"
+            )
             self.embedding_function = LocalEmbeddingFunction(_embedding_model)
 
         self.chromadb_client = chromadb.PersistentClient(path="./chroma_db")
